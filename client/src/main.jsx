@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { Search, Plus, ThumbsUp, CheckCircle2, MessageCircle, X } from 'lucide-react'
 import './style.css'
 
-const API = import.meta.env.VITE_API_ORIGIN || 'http://localhost:3002'
+const API = import.meta.env.VITE_API_ORIGIN || (import.meta.env.PROD ? window.location.origin : 'http://localhost:3002')
 const request = async (path, options = {}) => { const token = localStorage.getItem('qa-token'); const res = await fetch(`${API}/api${path}`, { ...options, headers: { 'Content-Type': 'application/json', ...(token ? { Authorization: `Bearer ${token}` } : {}), ...options.headers } }); const data = await res.json(); if (!res.ok) throw new Error(data.message || '请求失败，请稍后再试。'); return data }
 const date = (value) => new Intl.DateTimeFormat('zh-CN', { month: 'short', day: 'numeric' }).format(new Date(value))
 

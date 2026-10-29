@@ -1,3 +1,9 @@
 [build]
-  command = "npm --prefix client install && npm --prefix client run build"
+  command = "npm --prefix server install && npm --prefix client install && npm --prefix client run build"
   publish = "client/dist"
+  functions = "server/netlify/functions"
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/api/:splat"
+  status = 200
